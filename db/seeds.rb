@@ -23,28 +23,9 @@ shippy = ArticleKeyword.create!(article_id: test1.id, keyword_id: tag2_of_the_ho
 
 shippy = ArticleKeyword.create!(article_id: test1.id, keyword_id: tag3_of_the_house_targaryen.id)
 
-def get_search_term
-    search_term = gets.chomp
-    return search_term
-end
-
 # adding search term
-def get_nyt_json(search_term)
-    url =  'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + search_term + '&api-key=' + ENV["secret_api_key"]
-    response = RestClient.get(url)
-    json = JSON.parse(response)
-    return json
-end
 
-def parse_json(json)
-    all_articles = []
-    json["items"][0..10].each do |article_info|
-        snippet = article_info["docs"]["snippet"]
-        url = article_info["docs"]["web_url"]
-        all_articles << {"snippet": snippet, "url": web_url}
-    end
-    return all_articles
-end
+
 
 #
 # def display_results(article_array)

@@ -1,17 +1,18 @@
 <h1>Article Search Thunderdome</h1>
 
-<label for="site-search">Enter Search Term:</label>
-<input type="search" id="site-search">
-
-<button>Search</button>
+<%= form_tag("/search", method: "get") do %>
+  <%= label_tag(:q, "Search for:") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
 
 
 
 <ul>
    <% @articles.each do |article| %>
-    <li> Headline: <%= link_to article.headline, article_path(article) %> <br>
-     Author: <%= article.author %> <br>
-     Snippet: <%= article.snippet %>
+    <li><%= link_to article.headline, article_path(article) %> <br>
+    <%= article.author %> <br>
+     <%= article.snippet %>
     </li>
   <% end %>
 </ul>
