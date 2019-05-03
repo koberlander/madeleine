@@ -10,9 +10,19 @@
 
 <ul>
    <% @articles.each do |article| %>
-    <li><%= link_to article.headline, article_path(article) %> <br>
-    <%= article.author %> <br>
-     <%= article.snippet %>
-    </li>
+    <li><%= link_to article.headline, article_path(article) %><br>
+
+        <% unless article.author.nil?  %>
+          <% if article.author[0...3] === "By " %>
+            <%= article.author[3..-1] %><br>
+          <% else %>
+            <%= article.author %><br>
+          <% end %>
+        <% end %>
+         <% unless article.snippet.nil? || article.snippet === "" %>
+          <%= article.snippet %><br>
+         <% end %>
+       <br>
+     </li>
   <% end %>
 </ul>
