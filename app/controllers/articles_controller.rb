@@ -16,19 +16,14 @@ class ArticlesController < ApplicationController
     json = JSON.parse(response)
     format_json(json)
 
+    # these lines are part of an incomplete solution to eliminate old searches
+    # @articles = format_json(json)
+    # render :index
     redirect_to articles_path
   end
 
   def new
     @article = Article.new
-  end
-
-  def edit
-
-  end
-
-  def update
-
   end
 
   private
@@ -47,8 +42,12 @@ class ArticlesController < ApplicationController
           article_object = {"snippet": snippet, "web_url": web_url, "headline": headline, "author": author}
           all_articles << article_object
           Article.find_or_create_by(article_object)
+          # we don't have memory objects for .methods (no readers or writers)
+          # instead, we're accessing the key to that hash
+          # we want an Array of AR Objects rather than hashes
 
       end
+      # byebug
       return all_articles
   end
 
