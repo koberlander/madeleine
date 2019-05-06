@@ -9,7 +9,6 @@
 
 
 <ul>
-  <% 10.times do %>
    <% @articles.each do |article| %>
     <li><%= link_to article[:headline], article_path(article) %><br>
           <% unless article.author.nil?  %>
@@ -25,5 +24,4 @@
          <br>
        </li>
      <% end %>
-  <% end %>
 </ul>
