@@ -35,8 +35,9 @@ class ArticlesController < ApplicationController
   def format_json(json)
       all_articles = []
       json["response"]["docs"][0..10].each do |article_info|
+          #byebug
           headline = article_info["headline"]["main"]
-          # pub_date = article_info["pub_date"]
+          #pub_date = article_info["pub_date"]
           author = article_info["byline"]["original"]
           snippet = article_info["snippet"]
           web_url = article_info["web_url"]
