@@ -3,6 +3,7 @@ class CreateArticles < ActiveRecord::Migration[5.2]
     create_table :articles do |t|
       t.string :headline
       t.string :author
+      t.datetime :pub_date
       t.string :snippet
       t.string :web_url
 

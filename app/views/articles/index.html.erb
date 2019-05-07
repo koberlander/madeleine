@@ -6,10 +6,11 @@
   <%= submit_tag("Search") %>
 <% end %>
 
-
-
 <ul>
-   <% @articles.each do |article| %>
+<%# the relevant array we're acting on is @articles.
+Sort it by pub_date first, and then iterate over/render those objects %>
+
+   <% @articles.sort_by(&:pub_date).each do |article| %>
     <li><%= link_to article[:headline], article_path(article) %><br>
           <% unless article.author.nil?  %>
             <% if article.author[0...3] === "By " %>

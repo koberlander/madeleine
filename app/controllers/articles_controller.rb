@@ -37,11 +37,11 @@ class ArticlesController < ApplicationController
       json["response"]["docs"][0..10].each do |article_info|
           #byebug
           headline = article_info["headline"]["main"]
-          #pub_date = article_info["pub_date"]
           author = article_info["byline"]["original"]
+          pub_date = article_info["pub_date"].to_datetime
           snippet = article_info["snippet"]
           web_url = article_info["web_url"]
-          article_object = {"snippet": snippet, "web_url": web_url, "headline": headline, "author": author}
+          article_object = {"headline": headline, "author": author, "pub_date": pub_date, "snippet": snippet, "web_url": web_url}
           article = Article.find_or_create_by(article_object)
           all_articles << article
           # we don't have memory objects for .methods (no readers or writers)
