@@ -8,19 +8,21 @@ class Api::V1::ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    #render json: @article
+    # render json: @article
   end
 
   def search
-    search_term = params[:q]
+    search_term = params[:search_term]
     url =  'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + search_term + '&api-key=' + ENV["SECRET_API_KEY"]
     response = RestClient.get(url)
-    json = JSON.parse(response)
-    format_json(json)
+    data = JSON.parse(response)
+    byebug
+    render json: data
+    # format_json(json)
 
     # these lines are part of an incomplete solution to eliminate old searches
-    @articles = format_json(json)
-    render :index
+    # @articles = format_json(data)
+
     # redirect_to articles_path
   end
 
@@ -43,6 +45,9 @@ class Api::V1::ArticlesController < ApplicationController
           pub_date = article_info["pub_date"].to_datetime
           snippet = article_info["snippet"]
           web_url = article_info["web_url"]
+          keywords = []
+          a_keyword = article_info["keywords"]
+          byebug
           article_object = {"headline": headline, "author": author, "pub_date": pub_date, "snippet": snippet, "web_url": web_url}
           article = Article.find_or_create_by(article_object)
           all_articles << article
